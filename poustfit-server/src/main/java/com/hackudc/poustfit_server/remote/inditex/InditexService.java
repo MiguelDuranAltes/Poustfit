@@ -19,7 +19,7 @@ public class InditexService {
         this.properties = properties;
     }
 
-    public String getZaraRecommendations(String imageUrl) {
+    public String getInditexRecommendations(String imageUrl) {
         // 1. Obtener el token llamando a la API intermedia
         String token = authenticationService.getAuthToken();
 
@@ -35,7 +35,7 @@ public class InditexService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(urlWithImage, HttpMethod.GET, entity, String.class);
 
-        // 5. Retornar la respuesta JSON de Zara
+        // 5. Retornar la respuesta JSON de Inditex
         return response.getBody();
     }
 
