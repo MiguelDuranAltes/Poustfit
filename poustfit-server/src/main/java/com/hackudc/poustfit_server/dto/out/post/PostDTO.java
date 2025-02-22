@@ -8,19 +8,24 @@ import java.time.LocalDateTime;
 public class PostDTO {
 
     private Long id;
+
     private LocalDateTime fechaPublicacion;
+
     private String url_externa;
+
     private String autor;
 
     private String title;
 
+    private boolean usuarioLoTieneEnFavoritos;
 
-    public PostDTO(Post post) {
+    public PostDTO(Post post, boolean usuarioLoTieneEnFavoritos) {
         this.id = post.getId();
         this.fechaPublicacion = post.getFechaPublicacion();
         this.url_externa = post.getUrl_externa();
         this.autor = post.getAutor().getUsername();
         this.title = post.getTitle();
+        this.usuarioLoTieneEnFavoritos = usuarioLoTieneEnFavoritos;
     }
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
@@ -65,4 +70,11 @@ public class PostDTO {
         this.title = title;
     }
 
+    public boolean isUsuarioLoTieneEnFavoritos() {
+        return usuarioLoTieneEnFavoritos;
+    }
+
+    public void setUsuarioLoTieneEnFavoritos(boolean usuarioLoTieneEnFavoritos) {
+        this.usuarioLoTieneEnFavoritos = usuarioLoTieneEnFavoritos;
+    }
 }

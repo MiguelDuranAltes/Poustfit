@@ -12,12 +12,10 @@ import com.hackudc.poustfit_server.persistence.entity.user.JwtToken;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.JwtTokenRepository;
 import com.hackudc.poustfit_server.persistence.service.image.ImageService;
-import com.hackudc.poustfit_server.persistence.service.image.ImageServiceFileSystem;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -34,14 +32,14 @@ public class MyAccountServiceImpl implements MyAccountService {
 
     private final MyProperties myProperties;
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @Autowired
-    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties) {
+    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties, ImageService imageService) {
         this.appUserRepository = appUserRepository;
         this.jwtTokenRepository = jwtTokenRepository;
         this.myProperties = myProperties;
+        this.imageService = imageService;
     }
 
     @Override
@@ -95,7 +93,8 @@ public class MyAccountServiceImpl implements MyAccountService {
         }
         AppUser user = foundUser.get();
         List<Post> postsLiked = user.getPostsLiked();
-        return postsLiked.stream().map(PostDTO::new)
+        return postsLiked.stream()
+                .map(postLiked -> new PostDTO(postLiked, true))
                 .collect(Collectors.toList());
 
     }
@@ -109,7 +108,9 @@ public class MyAccountServiceImpl implements MyAccountService {
         }
         AppUser user = foundUser.get();
         List<Post> posts = user.getPosts();
-        return posts.stream().map(PostDTO::new)
+
+        return posts.stream()
+                .map(post -> new PostDTO(post, appUserRepository.likesPost(user.getId(), post.getId())))
                 .collect(Collectors.toList());
 
     }

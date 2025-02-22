@@ -9,6 +9,8 @@ import com.hackudc.poustfit_server.persistence.service.post.PostService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,12 @@ public class PostController {
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PostDTO>> findAll(Pageable pageable) {
+        Page<PostDTO> postDTOPage = postService.findAll(pageable);
+        return ResponseEntity.ok(postDTOPage);
     }
 
     @PostMapping

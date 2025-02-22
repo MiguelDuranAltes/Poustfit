@@ -15,6 +15,9 @@ import com.hackudc.poustfit_server.remote.imgur.ApiClientImgur;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,18 +45,28 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
+    public Page<PostDTO> findAll(Pageable pageable) {
+
+        String username = SecurityUtils.getCurrentUserLogin();
+
+        AppUser user = appUserRepository.findByUsername(username).get();
+
+        Page<Post> postPage = postRepository.findAll(pageable);
+
+        Page<PostDTO> postDTOPage = postPage.map(post -> new PostDTO(post, appUserRepository.likesPost(user.getId(), post.getId())));
+
+        return postDTOPage;
+    }
+
+    @Override
+    @Transactional
     public PostDTO createPost(PostCreateDTO postCreateDTO) {
         Post post = new Post();
         post.setTitle(postCreateDTO.getTitle());
         String username = SecurityUtils.getCurrentUserLogin();
         post.setAutor(appUserRepository.findByUsername(username).get());
         postRepository.save(post);
-        return new PostDTO(post);
-    }
-
-    @Override
-    public PostDTO findPostById(Long id) {
-        return new PostDTO(postRepository.findById(id).get());
+        return new PostDTO(post, false);
     }
 
     @Override
