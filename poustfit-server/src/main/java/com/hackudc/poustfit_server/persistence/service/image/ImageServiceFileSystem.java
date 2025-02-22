@@ -99,4 +99,28 @@ public class ImageServiceFileSystem implements ImageService {
       throw new MultimediaException("Se ha producido algún error al borrar la imagen");
     }
   }
+
+  @Override
+  public ImageDTO getProductImage(String nombreImagen) throws MultimediaException {
+    try {
+      String ruta = properties.getMediaPathPost();
+
+      InputStream is = new FileInputStream(ruta + nombreImagen);
+
+      byte[] buffer = new byte[1024];
+      ByteArrayOutputStream os = new ByteArrayOutputStream();
+      int len;
+      while ((len = is.read(buffer)) > -1) {
+        os.write(buffer, 0, len);
+      }
+      InputStream imageIs = new ByteArrayInputStream(os.toByteArray());
+      os.flush();
+      is.close();
+
+      return new ImageDTO(imageIs, nombreImagen, getImageMediaType(nombreImagen));
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new MultimediaException("se ha producido algún error al recuperar la imagen");
+    }
+  }
 }

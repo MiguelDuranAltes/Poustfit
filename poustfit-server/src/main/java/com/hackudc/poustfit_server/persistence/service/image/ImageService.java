@@ -11,4 +11,6 @@ public interface ImageService {
   ImageDTO getImage(Long id, String nombreImagen, boolean post) throws MultimediaException;
 
   void deleteImage(Long id, String nombreImagen, boolean post) throws MultimediaException;
+
+  ImageDTO getProductImage(String nombreImagen) throws MultimediaException;
 }
