@@ -22,10 +22,20 @@
             route: '/home'
         },
         {
+            label: 'Publish',
+            icon: 'pi pi-plus-circle',
+            route: '/publish'
+        },
+        {
+            label: 'My favorites',
+            icon: 'pi pi-heart',
+            route: '/favorites'
+        },
+        {
             label: 'My profile',
             icon: 'pi pi-user',
             route: '/my-profile'
-        }
+        },
     ]);
 </script>
 

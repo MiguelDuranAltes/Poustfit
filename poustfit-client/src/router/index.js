@@ -5,6 +5,8 @@ import LoginView from '@/features/login/views/LoginView.vue'
 import HomeView from '@/features/home/views/HomeView.vue'
 import RegisterView from '@/features/register/views/RegisterView.vue'
 import MyProfileView from '@/features/my-profile/views/MyProfileView.vue'
+import PublishView from '@/features/publish/views/PublishView.vue'
+import FavoritesView from '@/features/favorites/views/FavoritesView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +43,18 @@ const router = createRouter({
             path: '/my-profile',
             name: 'profilePage',
             component: MyProfileView,
+            meta: { public: false }
+        },
+        {
+            path: '/publish',
+            name: 'publishPage',
+            component: PublishView,
+            meta: { public: false }
+        },
+        {
+            path: '/favorites',
+            name: 'favoritesPage',
+            component: FavoritesView,
             meta: { public: false }
         },
     ],

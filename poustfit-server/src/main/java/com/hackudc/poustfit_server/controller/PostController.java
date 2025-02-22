@@ -21,8 +21,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> createPost() {
-        PostDTO postDTO = postService.createPost();
+    public ResponseEntity<PostDTO> createPost(@RequestBody String descripcion) {
+        PostDTO postDTO = postService.createPost(descripcion);
         return ResponseEntity.ok(postDTO);
     }
 

@@ -88,6 +88,12 @@
             return;
         }
 
+        if (descripcion.value.length === 0) {
+            thereIsError.value = true;
+            errorMessage.value = "Description is empty";
+            return;
+        }
+
         if (password.value.length < 4) {
             thereIsError.value = true;
             errorMessage.value = "Password must be at least 4 characters long";
@@ -108,7 +114,7 @@
                     username: username.value,
                     correo: correo.value,
                     password: password.value,
-                    descripcion: descripcion.value ? descripcion.value : null,
+                    descripcion: descripcion.value,
                 }
             );
 

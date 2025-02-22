@@ -29,6 +29,10 @@ public class Post {
 
     @ManyToMany(mappedBy = "postsLiked", fetch = FetchType.LAZY)
     private List<AppUser> likedUsers = new ArrayList<>();
+
+    @Column
+    private String descripcion;
+
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
 
 
@@ -74,6 +78,10 @@ public class Post {
 
     public  List<AppUser> getLikedUsers() { return likedUsers; }
     public void setLikedUsers(List<AppUser> likedUsers) { this.likedUsers = likedUsers; }
+
+    public String getDescripcion() { return descripcion; }
+
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     @Override
     public boolean equals(Object o) {

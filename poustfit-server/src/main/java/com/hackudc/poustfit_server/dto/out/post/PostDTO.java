@@ -12,11 +12,15 @@ public class PostDTO {
     private String url_externa;
     private String autor;
 
+    private String descripcion;
+
+
     public PostDTO(Post post) {
         this.id = post.getId();
         this.fechaPublicacion = post.getFechaPublicacion();
         this.url_externa = post.getUrl_externa();
         this.autor = post.getAutor().getUsername();
+        this.descripcion = post.getDescripcion();
     }
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
@@ -53,5 +57,8 @@ public class PostDTO {
         this.autor = autor;
     }
 
+    public String getDescripcion() { return descripcion; }
+
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
 }
