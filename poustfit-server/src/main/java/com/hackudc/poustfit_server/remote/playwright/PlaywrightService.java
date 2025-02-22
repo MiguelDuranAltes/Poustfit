@@ -70,6 +70,8 @@ public class PlaywrightService {
             playwright.close();
             browser = null;
             playwright = null;
+            page = null;
+            context = null;
         }
     }
 
