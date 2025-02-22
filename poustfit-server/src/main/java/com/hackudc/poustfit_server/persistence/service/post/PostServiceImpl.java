@@ -58,6 +58,25 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
+    public PostDTO findById(Long id) throws NotFoundException {
+
+        Optional<Post> postOptional = postRepository.findById(id);
+
+        if (postOptional.isEmpty()) {
+            throw new NotFoundException(id.toString(), Post.class);
+        }
+
+        Post post = postOptional.get();
+
+        String username = SecurityUtils.getCurrentUserLogin();
+
+        AppUser user = appUserRepository.findByUsername(username).get();
+
+        return new PostDTO(post, appUserRepository.likesPost(user.getId(), post.getId()));
+    }
+
+    @Override
+    @Transactional
     public PostDTO createPost(PostCreateDTO postCreateDTO) {
         Post post = new Post();
         post.setTitle(postCreateDTO.getTitle());

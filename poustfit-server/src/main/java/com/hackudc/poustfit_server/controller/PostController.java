@@ -5,6 +5,7 @@ import com.hackudc.poustfit_server.dto.out.common.OkDTO;
 import com.hackudc.poustfit_server.dto.out.image.ImageDTO;
 import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.exceptions.ModelException;
+import com.hackudc.poustfit_server.exceptions.NotFoundException;
 import com.hackudc.poustfit_server.persistence.service.post.PostService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -34,6 +35,12 @@ public class PostController {
         return ResponseEntity.ok(postDTOPage);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPost(@PathVariable Long id) throws NotFoundException {
+        PostDTO postDTO = postService.findById(id);
+        return ResponseEntity.ok(postDTO);
+    }
+
     @PostMapping
     public ResponseEntity<PostDTO> createPost(@RequestBody PostCreateDTO postCreateDTO) {
         PostDTO postDTO = postService.createPost(postCreateDTO);
@@ -51,6 +58,7 @@ public class PostController {
         postService.likeDislikePost(id, true);
         return ResponseEntity.ok(new OkDTO("Post liked"));
     }
+
     @PostMapping("/{id}/disLike")
     public ResponseEntity<OkDTO> disLikePost(@PathVariable Long id) throws ModelException {
         postService.likeDislikePost(id, false);
