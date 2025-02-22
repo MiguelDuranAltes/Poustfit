@@ -1,10 +1,11 @@
 <template>
-    <main class="min-h-full flex flex-col items-center md:pb-14 md:ml-52 ">
-        <h1>The Publish View</h1>
+    <main class="max-h-full overflow-y-scroll flex flex-col items-center ">
+        <PublishForm></PublishForm>
     </main>
 </template>
 
 <script setup>
+import PublishForm from '@/features/publish/components/PublishForm.vue'
 </script>
 
 <style scoped>

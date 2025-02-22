@@ -1,5 +1,5 @@
 <template>
-    <main class="h-full flex flex-col items-center">
+    <main class="max-h-full overflow-y-scroll flex flex-col items-center">
         <div class="flex just w-full justify-star pt-2 pl-2">
             <router-link :to="{ name: 'welcomePage' }">
                 <Button icon="pi pi-chevron-left" variant="text" rounded aria-label="Go back" size="large">

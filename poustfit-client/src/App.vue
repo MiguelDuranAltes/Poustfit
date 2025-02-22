@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-screen p-5 gap-5">
         <NavBar v-if="authStore.isAuthenticated"></NavBar>
-        <div class="flex-1 w-full">
+        <div class="flex-1 max-h-full overflow-y-hidden w-full">
             <RouterView :key="$route.fullPath"/>
         </div>
     </div>
