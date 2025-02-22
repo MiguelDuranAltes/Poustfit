@@ -27,7 +27,7 @@ public class AppUser {
     @Column(nullable = false)
     private String password;
 
-    private boolean tieneFotoPerfil;
+    private String imageName;
 
     private String descripcion;
 
@@ -85,12 +85,12 @@ public class AppUser {
         this.password = password;
     }
 
-    public boolean isTieneFotoPerfil() {
-        return tieneFotoPerfil;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setTieneFotoPerfil(boolean tieneFotoPerfil) {
-        this.tieneFotoPerfil = tieneFotoPerfil;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getDescripcion() {

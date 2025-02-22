@@ -2,6 +2,7 @@ package com.hackudc.poustfit_server.controller;
 
 import com.hackudc.poustfit_server.config.MyProperties;
 import com.hackudc.poustfit_server.dto.out.common.OkDTO;
+import com.hackudc.poustfit_server.dto.out.user.UserDTOPrivate;
 import com.hackudc.poustfit_server.persistence.service.my_account.MyAccountService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,5 +37,10 @@ public class MyAccountController {
         httpServletResponse.addCookie(cookie);
 
         return ResponseEntity.ok(new OkDTO("Sesión cerrada correctamente"));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<UserDTOPrivate> getMyInfo() {
+        return ResponseEntity.ok(myAccountService.getMyInfo());
     }
 }

@@ -1,10 +1,12 @@
 package com.hackudc.poustfit_server.persistence.service.my_account;
 
 import com.hackudc.poustfit_server.config.MyProperties;
+import com.hackudc.poustfit_server.dto.out.user.UserDTOPrivate;
 import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import com.hackudc.poustfit_server.persistence.entity.user.JwtToken;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.JwtTokenRepository;
+import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -57,5 +59,15 @@ public class MyAccountServiceImpl implements MyAccountService {
             System.out.println("----------Ejecutando: delete en logout AppUserServiceImp----------");
             jwtTokenRepository.delete(lastToken);
         }
+    }
+    @Override
+    public UserDTOPrivate getMyInfo(){
+
+        String user= SecurityUtils.getCurrentUserLogin();
+        if(user!=null){
+            return new UserDTOPrivate(appUserRepository.findByUsername(user).get());
+        }
+        return null;
+
     }
 }
