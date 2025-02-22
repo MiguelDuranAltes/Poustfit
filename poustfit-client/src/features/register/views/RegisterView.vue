@@ -6,7 +6,7 @@
                 </Button>
             </router-link>
         </div>
-        <div class="flex justify-between items-center pt-20">
+        <div class="flex justify-between items-center pt-5">
             <div class="flex just w-full justify-center">
                 <h1 class="text-myGreenPrimary font-bold text-4xl md:text-6xl">
                     REGISTER
@@ -14,14 +14,14 @@
             </div>
         </div>
         <section class="w-fit">
-            <LoginForm></LoginForm>
+            <RegisterForm></RegisterForm>
         </section>
     </main>
 </template>
 
 <script setup>
     import Button from "primevue/button";
-    import LoginForm from '@/features/login/components/LoginForm.vue'
+    import RegisterForm from '@/features/register/components/RegisterForm.vue'
 </script>
 
 <style scoped>

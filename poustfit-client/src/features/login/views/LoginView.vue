@@ -6,7 +6,7 @@
                 </Button>
             </router-link>
         </div>
-        <div class="flex justify-between items-center pt-20">
+        <div class="flex justify-between items-center pt-5">
             <div class="flex just w-full justify-center">
                 <h1 class="text-myGreenPrimary font-bold text-4xl md:text-6xl">
                     LOGIN
