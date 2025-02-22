@@ -33,6 +33,10 @@ public class MyProperties {
 
     private String imgurClientId;
 
+    private String imgbbKey;
+
+    private String imgbbUrl;
+
     public String getClientHost() {
         return clientHost;
     }
@@ -137,4 +141,19 @@ public class MyProperties {
         this.imgurClientId = imgurClientId;
     }
 
+    public String getImgbbKey() {
+        return imgbbKey;
+    }
+
+    public void setImgbbKey(String imgbbKey) {
+        this.imgbbKey = imgbbKey;
+    }
+
+    public String getImgbbUrl() {
+        return imgbbUrl;
+    }
+
+    public void setImgbbUrl(String imgbbUrl) {
+        this.imgbbUrl = imgbbUrl;
+    }
 }

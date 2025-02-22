@@ -13,11 +13,14 @@ import java.util.Map;
 @Service
 public class AuthenticationService {
 
-    @Autowired
-    private MyProperties properties;
+    private final MyProperties properties;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String AUTH_URL = properties.getAuthUrl();  // URL de autenticación
+
+    @Autowired
+    public AuthenticationService(MyProperties properties) {
+        this.properties = properties;
+    }
 
     public String getAuthToken() {
         // Crear el cuerpo de la petición con MultiValueMap para datos de formulario
@@ -34,7 +37,7 @@ public class AuthenticationService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestBody, headers);
 
         // Hacer el POST para obtener el token
-        ResponseEntity<Map> response = restTemplate.exchange(AUTH_URL, HttpMethod.POST, request, Map.class);
+        ResponseEntity<Map> response = restTemplate.exchange(properties.getAuthUrl(), HttpMethod.POST, request, Map.class);
         System.out.println("Response: " + response.getBody()); // Imprimir la respuesta para depuración
 
         // Verificar la respuesta

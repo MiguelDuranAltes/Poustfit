@@ -9,14 +9,14 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class InditexService {
-    @Autowired
-    private MyProperties properties;
+    private final MyProperties properties;
     private final RestTemplate restTemplate = new RestTemplate();
     private final AuthenticationService authenticationService; // Inyectamos el servicio de autenticación
-    private final String INDITEX_API_URL = properties.getInditexApiUrl();
 
-    public InditexService(AuthenticationService authenticationService) {
+    @Autowired
+    public InditexService(AuthenticationService authenticationService, MyProperties properties) {
         this.authenticationService = authenticationService;
+        this.properties = properties;
     }
 
     public String getZaraRecommendations(String imageUrl) {
@@ -29,7 +29,7 @@ public class InditexService {
         headers.setContentType(MediaType.APPLICATION_JSON); // Asegúrate de que el tipo de contenido es JSON
 
         // 3. Construir la URL con la imagen
-        String urlWithImage = INDITEX_API_URL + "?image=" + imageUrl;
+        String urlWithImage = properties.getInditexApiUrl() + "?image=" + imageUrl;
 
         // 4. Hacer la petición GET con el token
         HttpEntity<String> entity = new HttpEntity<>(headers);

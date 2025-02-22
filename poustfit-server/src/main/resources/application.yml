@@ -38,6 +38,8 @@ properties:
   inditex-password: b~C1-Q]P?H{:zgOC
   imgur-url: https://api.imgur.com/3/upload
   imgur-client: e31f050b518e308
+  imgbb-key: 78bea06a4a5b503785fca0a11cb82635
+  imgbb-url: https://api.imgbb.com/1/upload
 
 logging:
   level:

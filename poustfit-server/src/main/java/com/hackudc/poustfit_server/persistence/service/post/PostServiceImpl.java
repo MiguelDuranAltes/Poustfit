@@ -8,6 +8,7 @@ import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.PostRepository;
 import com.hackudc.poustfit_server.persistence.service.image.ImageService;
+import com.hackudc.poustfit_server.remote.imgbb.ApiClientImgbb;
 import com.hackudc.poustfit_server.remote.imgur.ApiClientImgur;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.transaction.Transactional;
@@ -26,14 +27,15 @@ public class PostServiceImpl implements PostService {
 
     private final ImageService imageService;
 
-    private final ApiClientImgur imgurClient;
+
+    private final ApiClientImgbb imgbbClient;
 
     @Autowired
-    public PostServiceImpl(AppUserRepository appUserRepository, PostRepository postRepository, ImageService imageService, ApiClientImgur imgurClient) {
+    public PostServiceImpl(AppUserRepository appUserRepository, PostRepository postRepository, ImageService imageService, ApiClientImgbb imgbbClient) {
         this.appUserRepository = appUserRepository;
         this.postRepository = postRepository;
         this.imageService = imageService;
-        this.imgurClient = imgurClient;
+        this.imgbbClient = imgbbClient;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class PostServiceImpl implements PostService {
             throw new ModelException("No se ha enviado ninguna imagen");
         }
         Post post = postOptional.get();
-        String imageUrl = imgurClient.uploadImage(file);
+        String imageUrl = imgbbClient.uploadImage(file);
         post.setUrl_externa(imageUrl);
 
         String nombreFichero = imageService.saveImage(file, id, true);
