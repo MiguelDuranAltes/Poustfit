@@ -1,6 +1,5 @@
-
 <template>
-    <Card class="w-[350px]">
+    <Card class="w-full">
         <template #header>
             <img alt="user header" :src="`http://localhost:8080/poustfit-server/posts/${post.id}/imagen`" class="w-full"/>
         </template>
@@ -10,7 +9,7 @@
             </div>
 
             <div>
-                <router-link :to="`/home/${props.post.id}`"> {{ post.title }} </router-link>
+                <p> {{ post.title }} </p>
             </div>
 
             <div>
@@ -37,7 +36,6 @@
     import { computed, onMounted, ref } from 'vue'
     import errorHandler from '@/communications_backend/common/errorHandler.js'
     import PostRepository from '@/communications_backend/repository/PostRepository.js'
-    import router from '@/router/index.js'
 
     const props = defineProps(['post'])
 

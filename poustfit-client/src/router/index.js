@@ -7,6 +7,7 @@ import RegisterView from '@/features/register/views/RegisterView.vue'
 import MyProfileView from '@/features/my-profile/views/MyProfileView.vue'
 import PublishView from '@/features/publish/views/PublishView.vue'
 import FavoritesView from '@/features/favorites/views/FavoritesView.vue'
+import DetailsView from '@/features/details/view/DetailsView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,12 @@ const router = createRouter({
             path: '/home',
             name: 'homePage',
             component: HomeView,
+            meta: { public: false }
+        },
+        {
+            path: '/home/:postId',
+            name: 'homeDetailsPage',
+            component: DetailsView,
             meta: { public: false }
         },
         {

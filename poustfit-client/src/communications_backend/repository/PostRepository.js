@@ -19,7 +19,18 @@ export default {
         return (await HTTP.post(`/posts`, post)).data;
     },
 
-    async addImagePost(id,imagen) {
-        return (await HTTP.post(`/posts/${id}/imagen`,imagen)).data;
+    async saveImage(id, file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const response = await HTTP.post(`/posts/${id}/imagen`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
     },
+
+    async getPost(id) {
+        return (await HTTP.get(`/posts/${id}`)).data;
+    }
 };
