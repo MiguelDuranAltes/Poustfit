@@ -4,7 +4,7 @@
         @scroll="handleScroll"
     >
         <li v-for="post in resultList" :key="post.id">
-            <PostComp :post="post" @dislikePost="dislikePost"></PostComp>
+            <PostComp :post="post"></PostComp>
         </li>
 
         <ProgressSpinner v-if="isLoading"></ProgressSpinner>

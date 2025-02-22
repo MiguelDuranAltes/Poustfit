@@ -1,16 +1,24 @@
 <template>
     <main class="h-full flex flex-col items-center">
         <div v-if="!isLoading" class="flex flex-col h-full w-full gap-5 overflow-y-scroll sm:flex-row sm:overflow-hidden" @scroll="handleScroll">
-            <div class="md:w-[350px]">
+            <div class="md:w-[280px]">
                 <PostDetailsComp :post="post"></PostDetailsComp>
             </div>
             <div class="grow h-full md:overflow-y-scroll" @scroll="handleScroll">
                 <ul>
                     <li v-for="recommendation in recommendationsList" :key="recommendation.id">
-                        <a :href="recommendation.link" target="_blank">{{ recommendation.name }}</a>
+
+                        <!--
+                        <a :href="recommendation.link" target="_blank" class="hover:text-emerald-600">{{ recommendation.name }}</a>
+                        -->
+                        <h2 class="hover:text-emerald-600 hover:cursor-pointer" @click="getProductPhoto(recommendation.name, recommendation.link)"> {{ recommendation.name }} </h2>
                     </li>
                     <ProgressSpinner v-if="isLoadingLocal"></ProgressSpinner>
                 </ul>
+            </div>
+            <div v-if="showingImage" class="flex grow items-center">
+                <ProgressSpinner v-if="isLoadingProductImage"></ProgressSpinner>
+                <img v-else :src="productImageSrc" alt="Product image">
             </div>
         </div>
         <ProgressSpinner v-else></ProgressSpinner>
@@ -25,6 +33,7 @@
     import { ProgressSpinner } from 'primevue'
     import errorHandler from '@/communications_backend/common/errorHandler.js'
     import InditexRepository from '@/communications_backend/repository/InditexRepository.js'
+    import inditexRepository from '@/communications_backend/repository/InditexRepository.js'
 
     const route = useRoute();
     const post = ref(null);
@@ -33,9 +42,14 @@
     const currentPage = ref(1);
     const pageSize = ref(30);
 
+    const productImageSrc = ref('');
+
     const isLoading = ref(true);
 
     const isLoadingLocal = ref(false);
+
+    const isLoadingProductImage = ref(false);
+    const showingImage = ref(false);
 
     onMounted(async () => {
         isLoading.value = true;
@@ -81,6 +95,18 @@
             await fetchInditexRecommendations();
         }
     }
+
+    async function getProductPhoto(name, url) {
+        showingImage.value = true;
+        isLoadingProductImage.value = true;
+        try {
+            productImageSrc.value = await inditexRepository.getProductPhoto(name, url);
+            isLoadingProductImage.value = false;
+        } catch (error) {
+            errorHandler(error);
+        }
+    }
+
 </script>
 
 <style scoped>
