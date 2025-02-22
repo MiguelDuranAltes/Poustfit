@@ -94,10 +94,26 @@ public class MyAccountServiceImpl implements MyAccountService {
             throw new NotFoundException(username, AppUser.class);
         }
         AppUser user = foundUser.get();
-        List<Post> posts = user.getPostsLiked();
-        return posts.stream().map(PostDTO::new)  // Convierte cada Post en un PostDTO
+        List<Post> postsLiked = user.getPostsLiked();
+        return postsLiked.stream().map(PostDTO::new)
                 .collect(Collectors.toList());
+
     }
+    @Override
+    @Transactional
+    public List<PostDTO> getMyPosts() throws NotFoundException {
+        String username = SecurityUtils.getCurrentUserLogin();
+        Optional<AppUser> foundUser = appUserRepository.findByUsername(username);
+        if (foundUser.isEmpty()) {
+            throw new NotFoundException(username, AppUser.class);
+        }
+        AppUser user = foundUser.get();
+        List<Post> posts = user.getPosts();
+        return posts.stream().map(PostDTO::new)
+                .collect(Collectors.toList());
+
+    }
+
 
     @Override
     @Transactional

@@ -18,6 +18,8 @@ public interface MyAccountService {
 
     public List<PostDTO> getMyLikedPosts() throws NotFoundException;
 
+    public List<PostDTO> getMyPosts() throws NotFoundException;
+
     public void saveUserImage(Long id,MultipartFile file) throws ModelException;
 
     public ImageDTO getUserImage(Long id) throws ModelException;
