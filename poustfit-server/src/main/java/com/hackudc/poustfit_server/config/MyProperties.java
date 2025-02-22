@@ -17,7 +17,9 @@ public class MyProperties {
 
     private Long maxFileSize;
 
-    private String mediaPath;
+    private String mediaPathUser;
+
+    private String mediaPathPost;
 
     public String getClientHost() {
         return clientHost;
@@ -59,11 +61,19 @@ public class MyProperties {
         this.maxFileSize = maxFileSize;
     }
 
-    public String getMediaPath() {
-        return mediaPath;
+    public String getMediaPathUser() {
+        return mediaPathUser;
     }
 
-    public void setMediaPath(String mediaPath) {
-        this.mediaPath = mediaPath;
+    public void setMediaPathUser(String mediaPathUser) {
+        this.mediaPathUser = mediaPathUser;
+    }
+
+    public String getMediaPathPost() {
+        return mediaPathPost;
+    }
+
+    public void setMediaPathPost(String mediaPathPost) {
+        this.mediaPathPost = mediaPathPost;
     }
 }

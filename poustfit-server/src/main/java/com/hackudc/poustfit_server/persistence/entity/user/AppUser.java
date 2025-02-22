@@ -1,7 +1,10 @@
 package com.hackudc.poustfit_server.persistence.entity.user;
 
+import com.hackudc.poustfit_server.persistence.entity.post.Post;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -34,6 +37,12 @@ public class AppUser {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "jwt_token_id")
     private JwtToken jwtToken;
+
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Post> posts = new ArrayList<>();
+
+    @ManyToMany
+    private List<Post> postsLiked = new ArrayList<>();
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
 
@@ -107,6 +116,22 @@ public class AppUser {
 
     public void setJwtToken(JwtToken jwtToken) {
         this.jwtToken = jwtToken;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Post> getPostsLiked() {
+        return postsLiked;
+    }
+
+    public void setPostsLiked(List<Post> postsLiked) {
+        this.postsLiked = postsLiked;
     }
 
     @Override

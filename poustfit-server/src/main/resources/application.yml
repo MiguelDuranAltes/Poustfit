@@ -3,7 +3,7 @@ spring:
     name: poustfit-server
   datasource:
     host: localhost
-    port: 5433
+    port: 5432
     database: poustfit
     username: poustfit
     password: poustfit
@@ -30,7 +30,8 @@ properties:
   expiration-in-minutes: 30
   jwt-cookie-name: TOKEN
   max-file-size: 20
-  media-path: /Users/lucaskwak/Desktop/HACKUDC/media
+  media-path-user: C:\Users\migue\HACKUDC\media\user
+  media-path-post: C:\Users\migue\HACKUDC\media\post
 logging:
   level:
     web: debug
