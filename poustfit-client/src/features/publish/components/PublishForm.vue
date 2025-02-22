@@ -81,11 +81,20 @@
             return;
         }
 
+        if(inputOculto.value.files[0] == null) {
+            thereIsError.value = true;
+            errorMessage.value = "Image is necessary";
+            return;
+        }
+
         try {
-            console.log(title.value)
-            await PostRepository.createPost({
+            const savedPost = await PostRepository.createPost({
                 title: title.value,
             });
+
+            if(inputOculto.value.files[0] != null) {
+                await PostRepository.saveImage(savedPost.id, inputOculto.value.files[0]);
+            }
 
             await router.push("/home");
 

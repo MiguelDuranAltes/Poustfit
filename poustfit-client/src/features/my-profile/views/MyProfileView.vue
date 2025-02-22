@@ -20,7 +20,6 @@
 
         try {
             userInfo.value = await AccountRepository.getAccountInfo();
-            console.log(userInfo.value.nombre);
             isLoading.value = false;
         } catch (error) {
             errorHandler(error);

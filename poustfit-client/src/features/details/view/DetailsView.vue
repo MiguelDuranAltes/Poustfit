@@ -61,8 +61,6 @@
 
             recommendationsList.value.push(...parcialList);
 
-            console.log(recommendationsList.value);
-
             currentPage.value++;
             isLoadingLocal.value = false;
         } catch (error) {
