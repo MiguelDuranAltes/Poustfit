@@ -23,6 +23,16 @@ public class MyProperties {
 
     private String inditexApiUrl;
 
+    private String authUrl;
+
+    private String inditextClient;
+
+    private String inditexPassword;
+
+    private String imgurUrl;
+
+    private String imgurClientId;
+
     public String getClientHost() {
         return clientHost;
     }
@@ -86,4 +96,45 @@ public class MyProperties {
     public void setInditexApiUrl(String inditexApiUrl) {
         this.inditexApiUrl = inditexApiUrl;
     }
+
+    public String getAuthUrl() {
+        return authUrl;
+    }
+
+    public void setAuthUrl(String authUrl) {
+        this.authUrl = authUrl;
+    }
+
+    public String getInditextClient() {
+        return inditextClient;
+    }
+
+    public void setInditexClient(String inditextClient) {
+        this.inditextClient = inditextClient;
+    }
+
+    public String getInditexPassword() {
+        return inditexPassword;
+    }
+
+    public void setInditexPassword(String inditexPassword) {
+        this.inditexPassword = inditexPassword;
+    }
+
+    public String getImgurUrl() {
+        return imgurUrl;
+    }
+
+    public void setImgurUrl(String imgurUrl) {
+        this.imgurUrl = imgurUrl;
+    }
+
+    public String getImgurClientId() {
+        return imgurClientId;
+    }
+
+    public void setImgurClientId(String imgurClientId) {
+        this.imgurClientId = imgurClientId;
+    }
+
 }

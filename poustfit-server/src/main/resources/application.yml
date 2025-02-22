@@ -37,7 +37,8 @@ properties:
   inditex-client: oauth-mkplace-oauthzhclqppuecgsquoxwlpropro
   inditex-password: b~C1-Q]P?H{:zgOC
   imgur-url: https://api.imgur.com/3/upload
-  imgur-client: e02f1c1f47d8352
+  imgur-client: e31f050b518e308
+
 logging:
   level:
     web: debug

@@ -4,6 +4,8 @@ import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +27,8 @@ public class Post {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private AppUser autor;
 
+    @ManyToMany(mappedBy = "postsLiked", fetch = FetchType.LAZY)
+    private List<AppUser> likedUsers = new ArrayList<>();
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
 
 
@@ -67,6 +71,9 @@ public class Post {
     public void setAutor(AppUser autor) {
         this.autor = autor;
     }
+
+    public  List<AppUser> getLikedUsers() { return likedUsers; }
+    public void setLikedUsers(List<AppUser> likedUsers) { this.likedUsers = likedUsers; }
 
     @Override
     public boolean equals(Object o) {

@@ -10,4 +10,5 @@ public interface PostService {
     PostDTO findPostById(Long id);
 
     void savePostImage(Long id, MultipartFile file) throws ModelException;
+    void likeDislikePost(Long id, boolean like) throws ModelException;
 }
