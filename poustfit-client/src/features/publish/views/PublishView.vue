@@ -1,5 +1,5 @@
 <template>
-    <main class="max-h-full overflow-y-scroll flex flex-col items-center ">
+    <main class="max-h-full overflow-y-scroll flex flex-col items-center">
         <PublishForm></PublishForm>
     </main>
 </template>

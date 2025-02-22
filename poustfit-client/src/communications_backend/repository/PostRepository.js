@@ -10,8 +10,13 @@ export default {
         return (await HTTP.post(`/posts/${id}/disLike`)).data;
     },
 
+    async getAllPosts(page, size) {
+        const response = await HTTP.get(`/posts`, { params: { page, size } });
+        return response.data;
+    },
+
     async createPost(post) {
-        return (await HTTP.post(`/post`, post)).data;
+        return (await HTTP.post(`/posts`, post)).data;
     },
 
     async addImagePost(id,imagen) {

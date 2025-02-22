@@ -8,5 +8,10 @@ export default {
 
     async getAccountInfo() {
         return (await HTTP.get(`/my-account/info`)).data;
+    },
+
+    async getMyFavorites(page, size) {
+        const response = await HTTP.get(`/my-account/likes`, { params: { page, size } });
+        return response.data;
     }
 };

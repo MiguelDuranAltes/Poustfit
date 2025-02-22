@@ -1,10 +1,11 @@
 <template>
-    <main class="min-h-full flex flex-col items-center md:pb-14 md:ml-52 ">
-        <h1>The Favorites View</h1>
+    <main class="max-h-full overflow-hidden flex flex-col items-center">
+        <FavoritesComp></FavoritesComp>
     </main>
 </template>
 
 <script setup>
+    import FavoritesComp from '@/features/favorites/components/FavoritesComp.vue'
 </script>
 
 <style scoped>

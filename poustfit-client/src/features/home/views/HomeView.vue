@@ -1,10 +1,11 @@
 <template>
-    <main class="min-h-full flex flex-col items-center md:pb-14 md:ml-52 ">
-        <h1>The Home View</h1>
+    <main class="max-h-full overflow-hidden flex flex-col items-center">
+        <AllPostsComp></AllPostsComp>
     </main>
 </template>
 
 <script setup>
+    import AllPostsComp from '@/features/home/components/AllPostsComp.vue'
 </script>
 
 <style scoped>
