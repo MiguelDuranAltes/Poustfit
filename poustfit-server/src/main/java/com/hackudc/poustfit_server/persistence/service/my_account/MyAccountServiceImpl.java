@@ -11,7 +11,6 @@ import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import com.hackudc.poustfit_server.persistence.entity.user.JwtToken;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.JwtTokenRepository;
-import com.hackudc.poustfit_server.persistence.repository.PostRepository;
 import com.hackudc.poustfit_server.persistence.service.image.ImageService;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.servlet.http.Cookie;
@@ -23,7 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -37,15 +35,13 @@ public class MyAccountServiceImpl implements MyAccountService {
     private final MyProperties myProperties;
 
     private final ImageService imageService;
-    private final PostRepository postRepository;
 
     @Autowired
-    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties, ImageService imageService, PostRepository postRepository) {
+    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties, ImageService imageService) {
         this.appUserRepository = appUserRepository;
         this.jwtTokenRepository = jwtTokenRepository;
         this.myProperties = myProperties;
         this.imageService = imageService;
-        this.postRepository = postRepository;
     }
 
     @Override

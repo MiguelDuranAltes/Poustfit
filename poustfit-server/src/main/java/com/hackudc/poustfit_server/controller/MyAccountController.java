@@ -87,4 +87,6 @@ public class MyAccountController {
         return ResponseEntity.ok(new OkDTO("Imagen recuperada correctamente"));
     }
 
+
+
 }
