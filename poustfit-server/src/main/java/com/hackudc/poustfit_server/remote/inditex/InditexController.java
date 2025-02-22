@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/zara")
-public class ZaraController {
+public class InditexController {
 
-    private final ZaraService zaraService;
+    private final InditexService inditexService;
 
-    public ZaraController(ZaraService zaraService) {
-        this.zaraService = zaraService;
+    public InditexController(InditexService inditexService) {
+        this.inditexService = inditexService;
     }
 
     @GetMapping("/recommendations")
     public String getRecommendations(@RequestParam String imageUrl) {
         // Llamar al servicio de Zara con la URL de la imagen
-        return zaraService.getZaraRecommendations(imageUrl);
+        return inditexService.getZaraRecommendations(imageUrl);
     }
 }

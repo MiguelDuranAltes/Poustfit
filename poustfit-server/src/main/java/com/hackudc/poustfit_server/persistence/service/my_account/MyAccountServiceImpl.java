@@ -1,14 +1,18 @@
 package com.hackudc.poustfit_server.persistence.service.my_account;
 
 import com.hackudc.poustfit_server.config.MyProperties;
+import com.hackudc.poustfit_server.dto.out.image.ImageDTO;
 import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.dto.out.user.UserDTOPrivate;
+import com.hackudc.poustfit_server.exceptions.ModelException;
 import com.hackudc.poustfit_server.exceptions.NotFoundException;
 import com.hackudc.poustfit_server.persistence.entity.post.Post;
 import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import com.hackudc.poustfit_server.persistence.entity.user.JwtToken;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.JwtTokenRepository;
+import com.hackudc.poustfit_server.persistence.service.image.ImageService;
+import com.hackudc.poustfit_server.persistence.service.image.ImageServiceFileSystem;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Service
 public class MyAccountServiceImpl implements MyAccountService {
@@ -27,6 +33,9 @@ public class MyAccountServiceImpl implements MyAccountService {
     private final JwtTokenRepository jwtTokenRepository;
 
     private final MyProperties myProperties;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties) {
@@ -89,4 +98,32 @@ public class MyAccountServiceImpl implements MyAccountService {
         return posts.stream().map(PostDTO::new)  // Convierte cada Post en un PostDTO
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public void saveUserImage(Long id, MultipartFile file) throws ModelException {
+        AppUser user = appUserRepository.getById(id);
+        if (user == null) {
+            throw new NotFoundException(id.toString(), AppUser.class);
+        }
+
+        if (file.isEmpty()) {
+            throw new ModelException("No se ha seleccionado ningún archivo");
+        }
+
+        String imageName = imageService.saveImage(file, id, false);
+        user.setImageName(imageName);
+        appUserRepository.save(user);
+    }
+
+
+    public ImageDTO getUserImage(Long id) throws ModelException {
+        AppUser user = appUserRepository.getById(id);
+        if (user == null) {
+            throw new NotFoundException(id.toString(), AppUser.class);
+        }
+
+        return imageService.getImage(id, user.getImageName(), false);
+    }
+
 }

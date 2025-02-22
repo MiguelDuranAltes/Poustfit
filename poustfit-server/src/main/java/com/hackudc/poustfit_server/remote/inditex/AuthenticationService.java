@@ -1,5 +1,7 @@
 package com.hackudc.poustfit_server.remote.inditex;
 
+import com.hackudc.poustfit_server.config.MyProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -11,8 +13,11 @@ import java.util.Map;
 @Service
 public class AuthenticationService {
 
+    @Autowired
+    private MyProperties properties;
+
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String AUTH_URL = "https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token"; // URL de autenticación
+    private final String AUTH_URL = properties.getAuthUrl();  // URL de autenticación
 
     public String getAuthToken() {
         // Crear el cuerpo de la petición con MultiValueMap para datos de formulario
@@ -23,7 +28,7 @@ public class AuthenticationService {
         // Configurar los headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setBasicAuth("oauth-mkplace-oauthzhclqppuecgsquoxwlpropro", "b~C1-Q]P?H{:zgOC");
+        headers.setBasicAuth(properties.getInditextClient(), properties.getInditexPassword());
 
         // Crear la solicitud
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestBody, headers);

@@ -6,15 +6,16 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
 @Service
-public class ZaraService {
+public class InditexService {
     @Autowired
     private MyProperties properties;
     private final RestTemplate restTemplate = new RestTemplate();
     private final AuthenticationService authenticationService; // Inyectamos el servicio de autenticación
-    private final String ZARA_API_URL = "https://api.inditex.com/pubvsearch/products"; // URL real de la API
+    private final String INDITEX_API_URL = properties.getInditexApiUrl();
 
-    public ZaraService(AuthenticationService authenticationService) {
+    public InditexService(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
@@ -28,7 +29,7 @@ public class ZaraService {
         headers.setContentType(MediaType.APPLICATION_JSON); // Asegúrate de que el tipo de contenido es JSON
 
         // 3. Construir la URL con la imagen
-        String urlWithImage = ZARA_API_URL + "?image=" + imageUrl;
+        String urlWithImage = INDITEX_API_URL + "?image=" + imageUrl;
 
         // 4. Hacer la petición GET con el token
         HttpEntity<String> entity = new HttpEntity<>(headers);
