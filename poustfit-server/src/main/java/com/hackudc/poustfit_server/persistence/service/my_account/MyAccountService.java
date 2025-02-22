@@ -16,4 +16,6 @@ public interface MyAccountService {
 
     public List<PostDTO> getMyLikedPosts() throws NotFoundException;
 
+    public List<PostDTO> getMyPosts() throws NotFoundException;
+
 }

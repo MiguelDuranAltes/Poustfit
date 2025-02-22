@@ -49,8 +49,13 @@ public class MyAccountController {
         return ResponseEntity.ok(myAccountService.getMyInfo());
     }
 
-    @GetMapping("/info/likes")
+    @GetMapping("/likes")
     public ResponseEntity<List<PostDTO>> getMyLikedPosts() throws NotFoundException {
         return ResponseEntity.ok(myAccountService.getMyLikedPosts());
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostDTO>> getMyPosts() throws NotFoundException {
+        return ResponseEntity.ok(myAccountService.getMyPosts());
     }
 }
