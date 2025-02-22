@@ -66,7 +66,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}/imagen")
-    public ResponseEntity<OkDTO> getImage(@PathVariable Long id, @RequestParam HttpServletResponse response) throws ModelException {
+    public ResponseEntity<OkDTO> getImage(@PathVariable Long id, HttpServletResponse response) throws ModelException {
         ImageDTO imageDTO=postService.getPostImage(id);
 
         try {
