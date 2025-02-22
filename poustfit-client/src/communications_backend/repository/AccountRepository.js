@@ -23,15 +23,11 @@ export default {
     async saveImage(file) {
         const formData = new FormData();
         formData.append("file", file);
-        const response = await HTTP.post(`/my-account/imagen`, formData, {
+        const response = await HTTP.post(`/my-account/image`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         });
         return response.data;
-    },
-
-    async getImage() {
-        return (await HTTP.get(`/my-account/imagen`)).data
-    },
+    }
 };

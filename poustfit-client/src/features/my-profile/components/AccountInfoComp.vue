@@ -3,7 +3,7 @@
         <template #content>
             <div class="flex w-full gap-1">
                 <div class="rounded-full border-2 border-myGreenPrimary shrink-0">
-                    <img :src="'/src/assets/logo.svg'" alt="Profile photo" class="w-[120px] h-[120px] rounded-full">
+                    <img :src="`http://localhost:8080/poustfit-server/my-account/image`" alt="Profile photo" class="w-[120px] h-[120px] rounded-full">
                 </div>
 
                 <div class="flex flex-col flex-grow text-center w-[133px]">
