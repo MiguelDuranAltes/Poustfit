@@ -11,13 +11,17 @@ import com.hackudc.poustfit_server.persistence.entity.user.AppUser;
 import com.hackudc.poustfit_server.persistence.entity.user.JwtToken;
 import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.JwtTokenRepository;
+import com.hackudc.poustfit_server.persistence.repository.PostRepository;
 import com.hackudc.poustfit_server.persistence.service.image.ImageService;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,13 +37,15 @@ public class MyAccountServiceImpl implements MyAccountService {
     private final MyProperties myProperties;
 
     private final ImageService imageService;
+    private final PostRepository postRepository;
 
     @Autowired
-    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties, ImageService imageService) {
+    public MyAccountServiceImpl(AppUserRepository appUserRepository, JwtTokenRepository jwtTokenRepository, MyProperties myProperties, ImageService imageService, PostRepository postRepository) {
         this.appUserRepository = appUserRepository;
         this.jwtTokenRepository = jwtTokenRepository;
         this.myProperties = myProperties;
         this.imageService = imageService;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -85,33 +91,30 @@ public class MyAccountServiceImpl implements MyAccountService {
 
     @Override
     @Transactional
-    public List<PostDTO> getMyLikedPosts() throws NotFoundException {
+    public Page<PostDTO> getMyLikedPosts(Pageable pageable) throws NotFoundException {
+
         String username = SecurityUtils.getCurrentUserLogin();
-        Optional<AppUser> foundUser = appUserRepository.findByUsername(username);
-        if (foundUser.isEmpty()) {
-            throw new NotFoundException(username, AppUser.class);
-        }
-        AppUser user = foundUser.get();
-        List<Post> postsLiked = user.getPostsLiked();
-        return postsLiked.stream()
-                .map(postLiked -> new PostDTO(postLiked, true))
-                .collect(Collectors.toList());
+
+        AppUser foundUser = appUserRepository.findByUsername(username).get();
+
+        Page<Post> postPage = appUserRepository.findPostsLikedByUser(foundUser.getId(), pageable);
+
+        Page<PostDTO> postDTOPage = postPage.map(post -> new PostDTO(post, appUserRepository.likesPost(foundUser.getId(), post.getId())));
+
+        return postDTOPage;
 
     }
     @Override
     @Transactional
-    public List<PostDTO> getMyPosts() throws NotFoundException {
+    public Page<PostDTO> getMyPosts(Pageable pageable) throws NotFoundException {
         String username = SecurityUtils.getCurrentUserLogin();
-        Optional<AppUser> foundUser = appUserRepository.findByUsername(username);
-        if (foundUser.isEmpty()) {
-            throw new NotFoundException(username, AppUser.class);
-        }
-        AppUser user = foundUser.get();
-        List<Post> posts = user.getPosts();
+        AppUser foundUser = appUserRepository.findByUsername(username).get();
 
-        return posts.stream()
-                .map(post -> new PostDTO(post, appUserRepository.likesPost(user.getId(), post.getId())))
-                .collect(Collectors.toList());
+        Page<Post> postPage = appUserRepository.findPostsByUser(foundUser.getId(), pageable);
+
+        Page<PostDTO> postDTOPage = postPage.map(post -> new PostDTO(post, appUserRepository.likesPost(foundUser.getId(), post.getId())));
+
+        return postDTOPage;
 
     }
 

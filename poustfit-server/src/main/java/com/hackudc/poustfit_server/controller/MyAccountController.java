@@ -7,20 +7,21 @@ import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.dto.out.user.UserDTOPrivate;
 import com.hackudc.poustfit_server.exceptions.ModelException;
 import com.hackudc.poustfit_server.exceptions.NotFoundException;
-import com.hackudc.poustfit_server.persistence.entity.post.Post;
 import com.hackudc.poustfit_server.persistence.service.my_account.MyAccountService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/my-account")
@@ -56,13 +57,14 @@ public class MyAccountController {
     }
 
     @GetMapping("/likes")
-    public ResponseEntity<List<PostDTO>> getMyLikedPosts() throws NotFoundException {
-        return ResponseEntity.ok(myAccountService.getMyLikedPosts());
+    public ResponseEntity<Page<PostDTO>> getMyLikedPosts(Pageable pageable) throws NotFoundException {
+        Page<PostDTO> postDTOPage = myAccountService.getMyLikedPosts(pageable);
+        return ResponseEntity.ok(postDTOPage);
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDTO>> getMyPosts() throws NotFoundException {
-        return ResponseEntity.ok(myAccountService.getMyPosts());
+    public ResponseEntity<Page<PostDTO>> getMyPosts(Pageable pageable) throws NotFoundException {
+        return ResponseEntity.ok(myAccountService.getMyPosts(pageable));
     }
 
     @PostMapping("/{id}/image")

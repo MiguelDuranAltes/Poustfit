@@ -11,13 +11,11 @@ import com.hackudc.poustfit_server.persistence.repository.AppUserRepository;
 import com.hackudc.poustfit_server.persistence.repository.PostRepository;
 import com.hackudc.poustfit_server.persistence.service.image.ImageService;
 import com.hackudc.poustfit_server.remote.imgbb.ApiClientImgbb;
-import com.hackudc.poustfit_server.remote.imgur.ApiClientImgur;
 import com.hackudc.poustfit_server.security.util.SecurityUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
