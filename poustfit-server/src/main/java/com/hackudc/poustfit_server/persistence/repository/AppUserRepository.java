@@ -14,4 +14,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     boolean existsByCorreo(String correo);
 
     Optional<AppUser> findByJwtToken_Token(String jwtToken);
+
 }

@@ -41,7 +41,12 @@ public class AppUser {
     @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Post> posts = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "likes",  // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "user_id"),  // Clave hacia User
+            inverseJoinColumns = @JoinColumn(name = "post_id") // Clave hacia Post
+    )
     private List<Post> postsLiked = new ArrayList<>();
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------

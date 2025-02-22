@@ -25,4 +25,13 @@ public class PostController {
     public void guardarImagen(@PathVariable Long id, @RequestParam MultipartFile file) throws ModelException {
         postService.savePostImage(id, file);
     }
+
+    @PostMapping("/{id}/like")
+    public void likePost(@PathVariable Long id) throws ModelException {
+        postService.likeDislikePost(id, true);
+    }
+    @PostMapping("/{id}/disLike")
+    public void disLikePost(@PathVariable Long id) throws ModelException {
+        postService.likeDislikePost(id, false);
+    }
 }
