@@ -117,29 +117,31 @@ public class MyAccountServiceImpl implements MyAccountService {
 
     @Override
     @Transactional
-    public void saveUserImage(Long id, MultipartFile file) throws ModelException {
-        AppUser user = appUserRepository.getById(id);
+    public void saveUserImage(MultipartFile file) throws ModelException {
+        String username = SecurityUtils.getCurrentUserLogin();
+        AppUser user = appUserRepository.findByUsername(username).get();
         if (user == null) {
-            throw new NotFoundException(id.toString(), AppUser.class);
+            throw new NotFoundException("User not found", AppUser.class);
         }
 
         if (file.isEmpty()) {
             throw new ModelException("No se ha seleccionado ningún archivo");
         }
 
-        String imageName = imageService.saveImage(file, id, false);
+        String imageName = imageService.saveImage(file, user.getId(), false);
         user.setImageName(imageName);
         appUserRepository.save(user);
     }
 
 
-    public ImageDTO getUserImage(Long id) throws ModelException {
-        AppUser user = appUserRepository.getById(id);
+    public ImageDTO getUserImage() throws ModelException {
+        String username = SecurityUtils.getCurrentUserLogin();
+        AppUser user = appUserRepository.findByUsername(username).get();
         if (user == null) {
-            throw new NotFoundException(id.toString(), AppUser.class);
+            throw new NotFoundException("User not found", AppUser.class);
         }
 
-        return imageService.getImage(id, user.getImageName(), false);
+        return imageService.getImage(user.getId(), user.getImageName(), false);
     }
 
 }

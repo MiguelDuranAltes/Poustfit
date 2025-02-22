@@ -67,15 +67,15 @@ public class MyAccountController {
         return ResponseEntity.ok(myAccountService.getMyPosts(pageable));
     }
 
-    @PostMapping("/{id}/image")
-    public ResponseEntity<OkDTO> saveUserImage(@PathVariable Long id, @RequestParam MultipartFile file) throws ModelException {
-        myAccountService.saveUserImage(id, file);
+    @PostMapping("/image")
+    public ResponseEntity<OkDTO> saveUserImage(@RequestParam MultipartFile file) throws ModelException {
+        myAccountService.saveUserImage(file);
         return ResponseEntity.ok(new OkDTO("Imagen guardada correctamente"));
     }
 
-    @GetMapping("/{id}/image")
-    public ResponseEntity<OkDTO> getUserImage(@PathVariable Long id,HttpServletResponse response) throws ModelException {
-        ImageDTO imageDTO =myAccountService.getUserImage(id);
+    @GetMapping("/image")
+    public ResponseEntity<OkDTO> getUserImage(HttpServletResponse response) throws ModelException {
+        ImageDTO imageDTO =myAccountService.getUserImage();
 
         try {
             response.setHeader("Content-disposition", "filename=" + imageDTO.getFilename());

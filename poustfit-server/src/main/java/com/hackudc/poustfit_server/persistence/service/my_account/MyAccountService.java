@@ -22,8 +22,8 @@ public interface MyAccountService {
 
     public Page<PostDTO> getMyPosts(Pageable pageable) throws NotFoundException;
 
-    public void saveUserImage(Long id,MultipartFile file) throws ModelException;
+    public void saveUserImage(MultipartFile file) throws ModelException;
 
-    public ImageDTO getUserImage(Long id) throws ModelException;
+    public ImageDTO getUserImage() throws ModelException;
 
 }
