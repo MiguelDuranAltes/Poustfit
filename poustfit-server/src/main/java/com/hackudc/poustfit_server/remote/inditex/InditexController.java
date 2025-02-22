@@ -18,7 +18,7 @@ public class InditexController {
     }
 
     @GetMapping("/recommendations")
-    public String getRecommendations(@RequestParam String imageUrl) {
-        return inditexService.getInditexRecommendations(imageUrl);
+    public String getRecommendations(@RequestParam String imageUrl, @RequestParam String page, @RequestParam String size) {
+        return inditexService.getInditexRecommendations(imageUrl, page, size);
     }
 }

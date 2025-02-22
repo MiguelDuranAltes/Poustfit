@@ -19,7 +19,7 @@ public class InditexService {
         this.properties = properties;
     }
 
-    public String getInditexRecommendations(String imageUrl) {
+    public String getInditexRecommendations(String imageUrl, String page, String size) {
         // 1. Obtener el token llamando a la API intermedia
         String token = authenticationService.getAuthToken();
 
@@ -29,7 +29,7 @@ public class InditexService {
         headers.setContentType(MediaType.APPLICATION_JSON); // Asegúrate de que el tipo de contenido es JSON
 
         // 3. Construir la URL con la imagen
-        String urlWithImage = properties.getInditexApiUrl() + "?image=" + imageUrl;
+        String urlWithImage = properties.getInditexApiUrl() + "?image=" + imageUrl + "&page=" + page + "&perPage=" + size;
 
         // 4. Hacer la petición GET con el token
         HttpEntity<String> entity = new HttpEntity<>(headers);
