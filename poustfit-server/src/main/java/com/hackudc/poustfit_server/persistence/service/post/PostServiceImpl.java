@@ -1,6 +1,7 @@
 package com.hackudc.poustfit_server.persistence.service.post;
 
 import com.hackudc.poustfit_server.dto.in.post.PostCreateDTO;
+import com.hackudc.poustfit_server.dto.out.image.ImageDTO;
 import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.exceptions.ModelException;
 import com.hackudc.poustfit_server.exceptions.NotFoundException;
@@ -101,5 +102,15 @@ public class PostServiceImpl implements PostService {
             user.getPostsLiked().remove(post);
         }
 
+    }
+
+    @Override
+    public ImageDTO getPostImage(Long id) throws ModelException {
+        Optional<Post> postOptional = postRepository.findById(id);
+        if (postOptional.isEmpty()) {
+            throw new NotFoundException(id.toString(), Post.class);
+        }
+        Post post = postOptional.get();
+        return imageService.getImage(id, post.getUrl_interna(), true);
     }
 }
