@@ -20,17 +20,21 @@ import java.util.Optional;
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    private AppUserRepository appUserRepository;
+    private final AppUserRepository appUserRepository;
+
+    private final PostRepository postRepository;
+
+    private final ImageService imageService;
+
+    private final ApiClientImgur imgurClient;
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private ImageService imageService;
-
-    @Autowired
-    private ApiClientImgur imgurClient;
+    public PostServiceImpl(AppUserRepository appUserRepository, PostRepository postRepository, ImageService imageService, ApiClientImgur imgurClient) {
+        this.appUserRepository = appUserRepository;
+        this.postRepository = postRepository;
+        this.imageService = imageService;
+        this.imgurClient = imgurClient;
+    }
 
     @Override
     @Transactional
@@ -50,15 +54,15 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public void savePostImage(Long id, MultipartFile file) throws ModelException{
-        Post post = postRepository.findById(id).get();
-        if (post == null) {
+        Optional<Post> postOptional = postRepository.findById(id);
+        if (postOptional.isEmpty()) {
             throw new NotFoundException(id.toString(), Post.class);
         }
 
         if (file.isEmpty()) {
             throw new ModelException("No se ha enviado ninguna imagen");
         }
-
+        Post post = postOptional.get();
         String imageUrl = imgurClient.uploadImage(file);
         post.setUrl_externa(imageUrl);
 
