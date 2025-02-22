@@ -12,7 +12,7 @@ public class PostDTO {
     private String url_externa;
     private String autor;
 
-    private String descripcion;
+    private String title;
 
 
     public PostDTO(Post post) {
@@ -20,7 +20,7 @@ public class PostDTO {
         this.fechaPublicacion = post.getFechaPublicacion();
         this.url_externa = post.getUrl_externa();
         this.autor = post.getAutor().getUsername();
-        this.descripcion = post.getDescripcion();
+        this.title = post.getTitle();
     }
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
@@ -57,8 +57,12 @@ public class PostDTO {
         this.autor = autor;
     }
 
-    public String getDescripcion() { return descripcion; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
 }

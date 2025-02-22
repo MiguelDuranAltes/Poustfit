@@ -1,5 +1,6 @@
 package com.hackudc.poustfit_server.controller;
 
+import com.hackudc.poustfit_server.dto.in.post.PostCreateDTO;
 import com.hackudc.poustfit_server.dto.out.common.OkDTO;
 import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.exceptions.ModelException;
@@ -21,8 +22,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> createPost(@RequestBody String descripcion) {
-        PostDTO postDTO = postService.createPost(descripcion);
+    public ResponseEntity<PostDTO> createPost(@RequestBody PostCreateDTO postCreateDTO) {
+        PostDTO postDTO = postService.createPost(postCreateDTO);
         return ResponseEntity.ok(postDTO);
     }
 

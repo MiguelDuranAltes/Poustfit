@@ -31,7 +31,7 @@ public class Post {
     private List<AppUser> likedUsers = new ArrayList<>();
 
     @Column
-    private String descripcion;
+    private String title;
 
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
 
@@ -79,9 +79,13 @@ public class Post {
     public  List<AppUser> getLikedUsers() { return likedUsers; }
     public void setLikedUsers(List<AppUser> likedUsers) { this.likedUsers = likedUsers; }
 
-    public String getDescripcion() { return descripcion; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Override
     public boolean equals(Object o) {

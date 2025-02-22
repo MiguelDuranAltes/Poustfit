@@ -1,5 +1,6 @@
 package com.hackudc.poustfit_server.persistence.service.post;
 
+import com.hackudc.poustfit_server.dto.in.post.PostCreateDTO;
 import com.hackudc.poustfit_server.dto.out.post.PostDTO;
 import com.hackudc.poustfit_server.exceptions.ModelException;
 import com.hackudc.poustfit_server.exceptions.NotFoundException;
@@ -40,9 +41,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostDTO createPost(String descripcion) {
+    public PostDTO createPost(PostCreateDTO postCreateDTO) {
         Post post = new Post();
-        post.setDescripcion(descripcion);
+        post.setTitle(postCreateDTO.getTitle());
         String username = SecurityUtils.getCurrentUserLogin();
         post.setAutor(appUserRepository.findByUsername(username).get());
         postRepository.save(post);
