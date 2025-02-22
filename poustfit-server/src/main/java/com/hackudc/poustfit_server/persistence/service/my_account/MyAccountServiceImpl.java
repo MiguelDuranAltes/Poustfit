@@ -133,7 +133,7 @@ public class MyAccountServiceImpl implements MyAccountService {
         appUserRepository.save(user);
     }
 
-
+    @Override
     public ImageDTO getUserImage() throws ModelException {
         String username = SecurityUtils.getCurrentUserLogin();
         AppUser user = appUserRepository.findByUsername(username).get();
