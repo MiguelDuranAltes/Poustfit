@@ -33,6 +33,16 @@ public class Post {
     @Column
     private String title;
 
+    public Post() {
+    }
+
+    public Post(String title, String url_interna, String url_externa, AppUser autor) {
+        this.title = title;
+        this.url_interna = url_interna;
+        this.url_externa = url_externa;
+        this.autor = autor;
+    }
+
     //----------------------------------------------GETTERS Y SETTERS---------------------------------------------------
 
 

@@ -14,6 +14,15 @@ public class UserPrivateDTO {
 
     private String descripcion;
 
+    public UserPrivateDTO(String nombre, String apellidos, String username, String correo, String password, String descripcion) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.username = username;
+        this.correo = correo;
+        this.password = password;
+        this.descripcion = descripcion;
+    }
+
     public String getNombre() {
         return nombre;
     }

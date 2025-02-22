@@ -30,8 +30,8 @@ properties:
   expiration-in-minutes: 30
   jwt-cookie-name: TOKEN
   max-file-size: 20
-  media-path-user: C:\Users\migue\HACKUDC\media\user
-  media-path-post: C:\Users\migue\HACKUDC\media\post
+  media-path-user: C:\Users\migue\HACKUDC\media\user\
+  media-path-post: C:\Users\migue\HACKUDC\media\post\
   inditex-api-url: https://api.inditex.com/pubvsearch/products
   auth-url: https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token
   inditex-client: oauth-mkplace-oauthzhclqppuecgsquoxwlpropro

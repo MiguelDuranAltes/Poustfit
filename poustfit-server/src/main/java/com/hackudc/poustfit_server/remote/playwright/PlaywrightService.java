@@ -59,6 +59,8 @@ public class PlaywrightService {
         selectedImage.screenshot(new Locator.ScreenshotOptions().setPath(Paths.get(properties.getMediaPathPost() + outputPath)));
 
         System.out.println("Captura de pantalla guardada: " + outputPath);
+
+        closeBrowser();
     }
 
     // Método para cerrar correctamente el navegador y liberar recursos
