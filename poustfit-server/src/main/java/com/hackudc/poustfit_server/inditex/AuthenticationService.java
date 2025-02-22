@@ -1,0 +1,48 @@
+package com.hackudc.poustfit_server.inditex;
+
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.Map;
+
+@Service
+public class AuthenticationService {
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String AUTH_URL = "https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token"; // URL de autenticación
+
+    public String getAuthToken() {
+        // Crear el cuerpo de la petición con MultiValueMap para datos de formulario
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("grant_type", "client_credentials");
+        requestBody.add("scope", "technology.catalog.read");
+
+        // Configurar los headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth("oauth-mkplace-oauthzhclqppuecgsquoxwlpropro", "b~C1-Q]P?H{:zgOC");
+
+        // Crear la solicitud
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestBody, headers);
+
+        // Hacer el POST para obtener el token
+        ResponseEntity<Map> response = restTemplate.exchange(AUTH_URL, HttpMethod.POST, request, Map.class);
+        System.out.println("Response: " + response.getBody()); // Imprimir la respuesta para depuración
+
+        // Verificar la respuesta
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            // Cambiar a "id_token" para obtener el token correcto
+            Object tokenObject = response.getBody().get("id_token");
+            if (tokenObject != null) {
+                return tokenObject.toString(); // Devolver el token como String
+            } else {
+                throw new RuntimeException("Token no encontrado en la respuesta");
+            }
+        }
+        throw new RuntimeException("Error obteniendo el token");
+    }
+
+}
