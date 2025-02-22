@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex flex-wrap max-h-full justify-evenly overflow-y-scroll gap-5 pb-10 w-full pr-7 pl-7
+    <ul class="flex flex-wrap justify-between gap-5 pb-10 w-full pr-7 pl-7
                md:pr-[90px] md:pl-[90px]"
         @scroll="handleScroll"
     >
@@ -10,12 +10,12 @@
         <ProgressSpinner v-if="isLoading"></ProgressSpinner>
     </ul>
     <p v-if="!isLoading && resultList.length === 0">
-        You have no favorites yet! Go to the home page and start adding some!
+        You have no outfits yet! Publish one!
     </p>
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
     import { ProgressSpinner } from 'primevue'
     import errorHandler from '@/communications_backend/common/errorHandler.js'
     import PostComp from '@/features/home/components/PostComp.vue'
@@ -26,10 +26,19 @@
     const resultList = ref([]);
 
     const currentPage = ref(0); // Página actual
-    const pageSize = ref(10); // Tamaño de página, nunca cambia
+    const pageSize = ref(2); // Tamaño de página, nunca cambia
     const totalPages = ref(1); // Total de páginas
 
+    let mainElement = null;
+
     onMounted(async () => {
+
+        await nextTick(() => {
+            mainElement = document.querySelector("main");
+            if (mainElement) {
+                mainElement.addEventListener("scroll", handleScroll);
+            }
+        });
         await fetchPosts();
     })
 
@@ -39,7 +48,7 @@
 
         try {
             isLoading.value = true;
-            resultPage.value = await AccountRepository.getMyFavorites(currentPage.value, pageSize.value);
+            resultPage.value = await AccountRepository.getMyPosts(currentPage.value, pageSize.value);
 
             if (resultPage.value.content.length === 0) {
                 isLoading.value = false;
@@ -70,13 +79,6 @@
         const bottomReached = target.scrollHeight - target.scrollTop <= target.clientHeight + 10;
         if (bottomReached) {
             await fetchPosts();
-        }
-    }
-
-    function dislikePost(postId) {
-        const index = resultList.value.findIndex(p => p.id === postId);
-        if (index !== -1) {
-            resultList.value.splice(index, 1);
         }
     }
 </script>

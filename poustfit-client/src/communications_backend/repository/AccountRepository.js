@@ -15,6 +15,11 @@ export default {
         return response.data;
     },
 
+    async getMyPosts(page, size) {
+        const response = await HTTP.get(`/my-account/posts`, { params: { page, size } });
+        return response.data;
+    },
+
     async saveImage(file) {
         const formData = new FormData();
         formData.append("file", file);

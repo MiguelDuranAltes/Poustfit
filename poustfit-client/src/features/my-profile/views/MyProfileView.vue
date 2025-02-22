@@ -1,7 +1,10 @@
 <template>
-    <main class="min-h-full flex flex-col items-center md:px-50">
+    <main class="max-h-full overflow-y-scroll flex flex-col items-center md:px-50">
         <ProgressSpinner v-if="isLoading"></ProgressSpinner>
-        <AccountInfoComp v-else :userInfo="userInfo"></AccountInfoComp>
+        <div v-else class="flex flex-col gap-2">
+            <AccountInfoComp :userInfo="userInfo"></AccountInfoComp>
+            <MyPostsComp></MyPostsComp>
+        </div>
     </main>
 </template>
 
@@ -11,6 +14,7 @@
     import errorHandler from '@/communications_backend/common/errorHandler.js'
     import AccountRepository from '@/communications_backend/repository/AccountRepository.js'
     import AccountInfoComp from '@/features/my-profile/components/AccountInfoComp.vue'
+    import MyPostsComp from '@/features/my-profile/components/MyPostsComp.vue'
 
     const isLoading = ref(true);
     const userInfo = ref(null);
