@@ -16,9 +16,11 @@
                     <ProgressSpinner v-if="isLoadingLocal"></ProgressSpinner>
                 </ul>
             </div>
-            <div v-if="showingImage" class="flex grow items-center">
+            <div v-if="showingImage" class="flex grow justify-center items-center">
                 <ProgressSpinner v-if="isLoadingProductImage"></ProgressSpinner>
-                <img v-else :src="productImageSrc" alt="Product image">
+                <a v-else :href="productUrl" target="_blank">
+                    <img :src="productImageSrc" alt="Product image" >
+                </a>
             </div>
         </div>
         <ProgressSpinner v-else></ProgressSpinner>
@@ -40,7 +42,7 @@
 
     const recommendationsList = ref([]);
     const currentPage = ref(1);
-    const pageSize = ref(30);
+    const pageSize = ref(40);
 
     const productImageSrc = ref('');
 
@@ -50,6 +52,7 @@
 
     const isLoadingProductImage = ref(false);
     const showingImage = ref(false);
+    const productUrl = ref('');
 
     onMounted(async () => {
         isLoading.value = true;
@@ -97,6 +100,7 @@
     }
 
     async function getProductPhoto(name, url) {
+        productUrl.value = url;
         showingImage.value = true;
         isLoadingProductImage.value = true;
         try {
