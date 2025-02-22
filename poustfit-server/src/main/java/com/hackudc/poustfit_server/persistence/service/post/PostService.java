@@ -5,7 +5,7 @@ import com.hackudc.poustfit_server.exceptions.ModelException;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface PostService {
-    PostDTO createPost();
+    PostDTO createPost(String descripcion);
 
     PostDTO findPostById(Long id);
 

@@ -38,8 +38,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostDTO createPost() {
+    public PostDTO createPost(String descripcion) {
         Post post = new Post();
+        post.setDescripcion(descripcion);
         String username = SecurityUtils.getCurrentUserLogin();
         post.setAutor(appUserRepository.findByUsername(username).get());
         postRepository.save(post);
