@@ -32,6 +32,12 @@ properties:
   max-file-size: 20
   media-path-user: C:\Users\migue\HACKUDC\media\user
   media-path-post: C:\Users\migue\HACKUDC\media\post
+  inditex-api-url: https://api.inditex.com/pubvsearch/products
+  auth-url: https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token
+  inditex-client: oauth-mkplace-oauthzhclqppuecgsquoxwlpropro
+  inditex-password: b~C1-Q]P?H{:zgOC
+  imgur-url: https://api.imgur.com/3/upload
+  imgur-client: e02f1c1f47d8352
 logging:
   level:
     web: debug

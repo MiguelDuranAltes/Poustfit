@@ -1,4 +1,4 @@
-package com.hackudc.poustfit_server.inditex;
+package com.hackudc.poustfit_server.remote.inditex;
 
 public class URLDto {
     private String url;

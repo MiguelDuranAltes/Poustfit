@@ -1,16 +1,18 @@
-package com.hackudc.poustfit_server.inditex;
+package com.hackudc.poustfit_server.remote.inditex;
 
+import com.hackudc.poustfit_server.config.MyProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class ZaraService {
-
+    @Autowired
+    private MyProperties properties;
     private final RestTemplate restTemplate = new RestTemplate();
     private final AuthenticationService authenticationService; // Inyectamos el servicio de autenticación
-    private final String ZARA_API_URL = "https://api.inditex.com/pubvsearch"; // URL real de la API
+    private final String ZARA_API_URL = "https://api.inditex.com/pubvsearch/products"; // URL real de la API
 
     public ZaraService(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;

@@ -21,6 +21,8 @@ public class MyProperties {
 
     private String mediaPathPost;
 
+    private String inditexApiUrl;
+
     public String getClientHost() {
         return clientHost;
     }
@@ -75,5 +77,13 @@ public class MyProperties {
 
     public void setMediaPathPost(String mediaPathPost) {
         this.mediaPathPost = mediaPathPost;
+    }
+
+    public String getInditexApiUrl() {
+        return inditexApiUrl;
+    }
+
+    public void setInditexApiUrl(String inditexApiUrl) {
+        this.inditexApiUrl = inditexApiUrl;
     }
 }

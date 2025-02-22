@@ -1,10 +1,10 @@
-package com.hackudc.poustfit_server.inditex;
+package com.hackudc.poustfit_server.remote.inditex;
 
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
