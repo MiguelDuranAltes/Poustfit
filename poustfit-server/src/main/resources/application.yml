@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: poustfit-server
+  datasource:
+    host: localhost
+    port: 5433
+    database: poustfit
+    username: poustfit
+    password: poustfit
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        type: trace
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+server:
+  servlet:
+    context-path: /poustfit-server
+properties:
+  clientHost: http://localhost:5173
+  jwt-secret-key: bWkgY2xhdmUgc3VwZXIgc2VndXJhIDEyMzQ1MjQ1MjIzMTEzMw==
+  expiration-in-minutes: 30
+  jwt-cookie-name: TOKEN
+  max-file-size: 20
+  media-path: /Users/lucaskwak/Desktop/HACKUDC/media
+logging:
+  level:
+    web: debug
