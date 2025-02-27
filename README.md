@@ -1,93 +1,87 @@
-# poustfit
+# Poustfit
 
+## Descripción
 
+Poustfit es un proyecto desarrollado durante el **HackUDC 2025** que utiliza la API proporcionada por **Inditex Tech Visual Search**. Su objetivo es fusionar las funciones relacionadas con Inditex y las redes sociales, permitiendo que los usuarios suban fotos de sus conjuntos de ropa y obtengan recomendaciones de productos Inditex relacionados con su vestimenta.
 
-## Getting started
+### ¿Qué hace?
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+El usuario podrá subir sus outfits a la plataforma. El sitio mostrará la imagen, información sobre la publicación y una lista de enlaces y fotos de productos Inditex relacionados con la ropa de la imagen. Los demás usuarios podrán ver las publicaciones y también compartir las suyas.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### ¿Cómo lo construimos?
 
-## Add your files
+El grupo, conformado por **Lucas Kwak**, **Miguel Marcos Trillo**, **Lucas Redondo** y **Miguel Durán**, dividió el trabajo entre los cuatro miembros, desarrollando tanto el frontend como el backend. Además, trabajamos en la integración de la API de Inditex y algunas APIs adicionales que encontramos en Internet.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Desafíos encontrados
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/hackudc/poustfit.git
-git branch -M main
-git push -uf origin main
-```
+Uno de los mayores desafíos que enfrentamos fue al tratar de usar la API de Inditex para relacionar las fotos con los productos. Descubrimos que la API no aceptaba directamente el archivo de imagen, sino que necesitábamos proporcionar una URL de la imagen. Por lo tanto, tuvimos que utilizar otra API, **Imgbb**, para poder subir la URL de la imagen y usarla en la solicitud.
 
-## Integrate with your tools
+Además, tuvimos que realizar un scraping en el sitio web de Inditex para extraer las fotos de los productos y poder mostrarlas en nuestro servicio.
 
-- [ ] [Set up project integrations](https://gitlab.com/hackudc/poustfit/-/settings/integrations)
+Al principio también tuvimos dificultades para entender la documentación de la API de Inditex, lo que provocó algunas confusiones en el código. Sin embargo, logramos resolverlas y continuar con el desarrollo.
 
-## Collaborate with your team
+### Logros de los que estamos orgullosos
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Nos sentimos muy orgullosos de haber logrado superar los problemas relacionados con la publicación de fotos en la API de Inditex. También conseguimos desarrollar la mayoría de las ideas iniciales que teníamos, algunas de las cuales pensábamos que no podríamos implementar.
 
-## Test and Deploy
+### Lo que aprendimos
 
-Use the built-in continuous integration in GitLab.
+Aprendimos mucho sobre el uso de APIs externas que nos ayudaron a implementar funcionalidades adicionales. Si hubiéramos tenido que implementar estas funcionalidades por nuestra cuenta, habría sido un proceso mucho más largo y complicado. Además, aprendimos a gestionar la cooperación en grupo en un proyecto full stack, logrando excelentes resultados y una gran comprensión mutua.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Instalación
 
-***
+Para comenzar con el proyecto, sigue estos pasos:
 
-# Editing this README
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/usuario/poustfit.git
+    cd poustfit
+    ```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+2. Instala las dependencias necesarias:
+    ```bash
+    npm install
+    ```
 
-## Suggestions for a good README
+3. Ejecuta el proyecto:
+    ```bash
+    npm start
+    ```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+4. Configura el `application.yml` en el servidor:
+    - Asegúrate de configurar correctamente la conexión a la base de datos en la sección correspondiente del archivo.
+    - Configura las rutas para guardar las imágenes en el sistema de archivos local. Debes especificar la ruta donde se almacenarán las imágenes subidas por los usuarios.
 
-## Name
-Choose a self-explaining name for your project.
+    Ejemplo de configuración en `application.yml`:
+    ```yaml
+    spring:
+      datasource:
+        url: jdbc:mysql://localhost:3306/tu_base_de_datos
+        username: tu_usuario
+        password: tu_contraseña
+      file:
+        upload-dir: /ruta/a/tu/carpeta/de/imagenes
+    ```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Uso
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Una vez el proyecto esté corriendo, podrás acceder a la página principal donde podrás subir tus fotos de outfits y ver las recomendaciones de productos Inditex relacionados. También podrás interactuar con las publicaciones de otros usuarios.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Autores y Reconocimientos
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Este proyecto fue desarrollado por el grupo de trabajo conformado por:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- **Lucas Kwak**
+- **Miguel Marcos Trillo**
+- **Lucas Redondo**
+- **Miguel Durán**
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Agradecemos a **Inditex Tech** por proporcionar la API que hizo posible la integración de productos Inditex con las fotos de outfits.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Licencia
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Este proyecto está bajo la licencia **Apache 2.0**.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## Estado del Proyecto
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+El proyecto está completo y funcionando, pero puede recibir futuras mejoras o cambios según sea necesario.
