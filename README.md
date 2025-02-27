@@ -45,7 +45,7 @@ Para comenzar con el proyecto, sigue estos pasos:
 
 3. Ejecuta el proyecto:
     ```bash
-    npm start
+    npm run dev
     ```
 
 4. Configura el `application.yml` en el servidor:
